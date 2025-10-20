@@ -34,8 +34,11 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: '404',
+    component: NotFoundPage,
+  },
+  {
     path: '**',
     redirectTo: '/404',
-    component: NotFoundPage,
   },
 ];
