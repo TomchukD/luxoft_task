@@ -3,13 +3,24 @@
     <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
 
     <form
-      class="flex flex-col gap-4"
+      class="flex flex-col gap-6"
       [formGroup]="loginForm"
       (ngSubmit)="onSubmit()"
     >
-      <input type="text" pInputText />
+      <p-floatlabel class="mb-2">
+        <input fluid type="text" pInputText formControlName="email" />
+        <label for="email">Email</label>
+      </p-floatlabel>
 
-      <input type="text" pInputText />
+      <p-floatlabel class="mb-2">
+        <p-password
+          fluid
+          formControlName="password"
+          [feedback]="false"
+          toggleMask="true"
+        ></p-password>
+        <label for="password">Password</label>
+      </p-floatlabel>
 
       <p-button type="submit" fluid [disabled]="loginForm.invalid">
         Login

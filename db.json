@@ -1,0 +1,38 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "firstName": "Dmytro",
+      "lastName": "Tomchuk",
+      "nickname": "dmit",
+      "city": "Kyiv",
+      "phone": "+380501234567",
+      "email": "dmytro@example.com",
+      "address": "Khreshchatyk 1"
+    },
+    {
+      "id": 2,
+      "firstName": "Katya",
+      "lastName": "Petrenko",
+      "nickname": "kat",
+      "city": "Lviv",
+      "phone": "+380671234567",
+      "email": "katya@example.com",
+      "address": "Shevchenko 12"
+    }
+  ],
+  "login": [
+    {
+      "id": 1,
+      "email": "admin@example.com",
+      "password": "admin",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "email": "user@example.com",
+      "password": "user",
+      "role": "user"
+    }
+  ]
+}

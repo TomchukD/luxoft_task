@@ -1,26 +1,36 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { InputText } from 'primeng/inputtext';
 import { Button } from 'primeng/button';
+import { FloatLabel } from 'primeng/floatlabel';
+import { Password } from 'primeng/password';
+import { InputText } from 'primeng/inputtext';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lx-login',
-  imports: [ReactiveFormsModule, InputText, Button],
+  imports: [ReactiveFormsModule, Button, FloatLabel, Password, InputText],
   standalone: true,
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.scss',
 })
 export class LoginPage {
-  public hidePassword: boolean = true;
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
   public loginForm: FormGroup = new FormGroup({
     email: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
   });
-  public onSubmit(): void {}
+  public onSubmit(): void {
+    this.authService.login(this.loginForm.value).subscribe((v) => {
+      localStorage.setItem('role', v[0].role);
+      this.router.navigate(['users']).then();
+    });
+  }
 }

@@ -4,6 +4,7 @@ import { UsersListPage } from 'src/app/pages/users/users-list.component';
 import { authGuard } from 'src/app/Guard/auth-guard';
 import { NotFoundPage } from 'src/app/pages/not-found-page/not-found-page';
 import { UserPage } from 'src/app/pages/user-page/user-page';
+import { roleGuard } from 'src/app/Guard/role-guard';
 
 export const routes: Routes = [
   {
@@ -21,10 +22,12 @@ export const routes: Routes = [
       {
         path: ':id/edit',
         component: UserPage,
+        canActivate: [roleGuard],
       },
       {
         path: 'new',
         component: UserPage,
+        canActivate: [roleGuard],
       },
     ],
   },

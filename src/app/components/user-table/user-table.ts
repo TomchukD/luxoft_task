@@ -7,6 +7,7 @@ import { ButtonGroup } from 'primeng/buttongroup';
 import { InputText } from 'primeng/inputtext';
 import { Drawer } from 'primeng/drawer';
 import { AutoComplete } from 'primeng/autocomplete';
+import { ukraineCities } from 'src/app/tool/cities';
 
 @Component({
   selector: 'lx-user-table',
@@ -25,7 +26,7 @@ import { AutoComplete } from 'primeng/autocomplete';
 })
 export class UserTable {
   public visible: boolean = false;
-  cities: any[] = [];
+  cities: string[] = ukraineCities;
   filterForm: FormGroup = new FormGroup({
     firstName: new FormControl(''),
     lastName: new FormControl(''),
