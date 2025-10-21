@@ -5,13 +5,14 @@ import {
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { map, take } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { selectUsers } from 'src/app/store/selector';
 import { User } from 'src/app/services/users/users.interface';
 
 export function uniqueNicknameValidator(
   store: Store,
   currentUserId?: string,
+  initialValue?: string,
 ): AsyncValidatorFn {
   return (control: AbstractControl): Observable<ValidationErrors | null> => {
     if (!control.value) {
@@ -20,7 +21,9 @@ export function uniqueNicknameValidator(
         observer.complete();
       });
     }
-
+    if (initialValue && control.value === initialValue) {
+      return of(null);
+    }
     return store.select(selectUsers).pipe(
       take(1),
       map((users: User[]) => {

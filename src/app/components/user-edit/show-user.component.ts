@@ -60,13 +60,21 @@ export class ShowUser {
   ) {
     if (this.dynamicDialogConfig.data) {
       this._user = this.dynamicDialogConfig.data;
-      this.form.patchValue(this.dynamicDialogConfig.data);
       this.form
         .get('nickname')
         ?.setAsyncValidators(
-          uniqueNicknameValidator(this.store, this._user?.id),
+          uniqueNicknameValidator(
+            this.store,
+            this._user!.id,
+            this._user!.nickname,
+          ),
         );
     }
+
+    this.form.patchValue(this.dynamicDialogConfig.data);
+    this.form
+      .get('nickname')
+      ?.updateValueAndValidity({ onlySelf: true, emitEvent: false });
   }
 
   public get formCities(): FormControl {
