@@ -19,9 +19,14 @@
     <ng-template pTemplate="header">
       <tr class="bg-gray-100">
         <th style="width: 4rem"><p-tableHeaderCheckbox /></th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Nickname</th>
+        <th>Avatar</th>
+        <th pSortableColumn="firstName">
+          First Name <p-sortIcon field="code" />
+        </th>
+        <th pSortableColumn="lastName">
+          Last Name <p-sortIcon field="code" />
+        </th>
+        <th pSortableColumn="nickname">Nickname <p-sortIcon field="code" /></th>
         <th>City</th>
         <th>Phone</th>
         <th>Email</th>
@@ -35,7 +40,20 @@
         <td>
           <p-tableCheckbox [value]="user" />
         </td>
+        <td>
+          @if (user.avatar) {
+            <p-avatar
+              [image]="user.avatar"
+              class="mr-2"
+              size="large"
+              shape="circle"
+            />
+          } @else {
+            <p-avatar label="P" shape="circle" class="mr-2" size="large" />
+          }
+        </td>
         <td>{{ user.firstName }}</td>
+
         <td>{{ user.lastName }}</td>
         <td>{{ user.nickname }}</td>
         <td>{{ user.city }}</td>
@@ -61,4 +79,3 @@
 </div>
 <p-confirmdialog />
 <p-toast />
-<!--<lx-user-edit [(visibleDialog)]="visibleDialog" [user]="chahgeUser" />-->

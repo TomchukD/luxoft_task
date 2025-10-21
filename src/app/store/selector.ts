@@ -29,8 +29,3 @@ export const selectFilteredUsers = createSelector(
     );
   },
 );
-
-export const selectUsersLoad = createSelector(
-  selectUserState,
-  (state) => state.loading,
-);

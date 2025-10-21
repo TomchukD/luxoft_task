@@ -13,12 +13,12 @@ export class UsersService extends BaseHttpService {
     return this.http.get<User[]>(this.baseAuthUrl);
   }
 
-  public updateUser(user: User): Observable<void> {
-    return this.http.put<void>(this.baseAuthUrl + `/${user.id}`, user);
+  public updateUser(user: User): Observable<User> {
+    return this.http.put<User>(this.baseAuthUrl + `/${user.id}`, user);
   }
 
-  public createUser(user: User): Observable<void> {
-    return this.http.post<void>(this.baseAuthUrl, user);
+  public createUser(user: User): Observable<User> {
+    return this.http.post<User>(this.baseAuthUrl, user);
   }
 
   public deleteUser(id: string): Observable<User> {

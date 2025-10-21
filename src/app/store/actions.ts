@@ -17,11 +17,11 @@ export const updateUser = createAction(
   '[User] update user',
   props<{ user: User }>(),
 );
-export const updateUserUserSuccess = createAction(
+export const updateUserSuccess = createAction(
   '[User] update user success',
   props<{ user: User }>(),
 );
-export const updateUserUserError = createAction(
+export const updateUserError = createAction(
   '[User] update user error',
   props<{ error: string }>(),
 );
@@ -31,11 +31,11 @@ export const deleteUser = createAction(
   '[User] delete user',
   props<{ id: string }>(),
 );
-export const deleteUserUserSuccess = createAction(
+export const deleteUserSuccess = createAction(
   '[User] delete user success',
   props<{ id: string }>(),
 );
-export const deleteUserUserError = createAction(
+export const deleteUserError = createAction(
   '[User] delete user error',
   props<{ error: string }>(),
 ); // ########################################
@@ -44,11 +44,11 @@ export const createUser = createAction(
   '[User] create user',
   props<{ user: User }>(),
 );
-export const createUserUserSuccess = createAction(
-  '[User] delete user success',
+export const createUserSuccess = createAction(
+  '[User] create user success',
   props<{ user: User }>(),
 );
-export const createUserUserError = createAction(
+export const createUserError = createAction(
   '[User] create user error',
   props<{ error: string }>(),
 );

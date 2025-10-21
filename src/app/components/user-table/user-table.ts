@@ -23,6 +23,7 @@ import { Toast } from 'primeng/toast';
 import { Filter } from 'src/app/components/filter/filter';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ShowUser } from 'src/app/components/user-edit/show-user.component';
+import { Avatar } from 'primeng/avatar';
 
 (pdfMake as any).vfs = pdfFonts.vfs;
 
@@ -39,6 +40,7 @@ import { ShowUser } from 'src/app/components/user-edit/show-user.component';
     AsyncPipe,
     Toast,
     Filter,
+    Avatar,
   ],
   templateUrl: './user-table.html',
   styleUrl: './user-table.scss',

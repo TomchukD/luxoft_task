@@ -12,6 +12,7 @@ export const initialState: UserState = {
   users: [],
   userFilterList: [],
   filters: {},
+
   error: null,
   loading: false,
 };

@@ -12,37 +12,35 @@ export const userReducer = createReducer(
     loading: false,
     error: null,
   })),
-  on(UserAction.loadUsersError, (state, { error }) => ({
-    ...state,
-    loading: false,
-    error,
-  })),
+  on(UserAction.createUserSuccess, (state, { user }) => {
+    if (!user) return state;
+    return {
+      ...state,
+      users: [...state.users, user],
+      loading: false,
+      error: null,
+    };
+  }),
 
-  on(UserAction.createUserUserSuccess, (state, { user }) => ({
+  on(UserAction.updateUserSuccess, (state, { user }) => ({
     ...state,
-    users: [...state.users, user],
+    users: state.users.map((u) =>
+      u.id.toString() === user.id.toString() ? user : u,
+    ),
     loading: false,
     error: null,
   })),
 
-  on(UserAction.updateUserUserSuccess, (state, { user }) => ({
-    ...state,
-    users: state.users.map((u) => (u.id === user.id ? user : u)),
-    loading: false,
-    error: null,
-  })),
-
-  on(UserAction.deleteUserUserSuccess, (state, { id }) => ({
-    ...state,
-    users: state.users.filter((u) => u.id !== id),
-    loading: false,
-    error: null,
-  })),
+  on(UserAction.deleteUserSuccess, (state, { id }) => {
+    const updatedUsers = state.users.filter((u) => +u.id !== +id);
+    return { ...state, users: updatedUsers, loading: false, error: null };
+  }),
 
   on(
-    UserAction.createUserUserError,
-    UserAction.updateUserUserError,
-    UserAction.deleteUserUserError,
+    UserAction.createUserError,
+    UserAction.loadUsersError,
+    UserAction.updateUserError,
+    UserAction.deleteUserError,
     (state, { error }) => ({
       ...state,
       loading: false,

@@ -16,6 +16,7 @@ import { Message } from 'primeng/message';
 import { KeyFilter } from 'primeng/keyfilter';
 import { CitiesAutocomplete } from 'src/app/components/cities-autocomplete/cities-autocomplete';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { AvatarUpload } from 'src/app/components/avatar/avatar';
 
 @Component({
   selector: 'lx-user-edit',
@@ -27,29 +28,17 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
     Message,
     KeyFilter,
     CitiesAutocomplete,
+    AvatarUpload,
   ],
   templateUrl: './show-user.component.html',
   styleUrl: './show-user.component.scss',
 })
 export class ShowUser {
-  constructor(
-    public dialogRef: DynamicDialogRef,
-    private dynamicDialogConfig: DynamicDialogConfig,
-  ) {
-    if (this.dynamicDialogConfig.data) {
-      this.form.patchValue(this.dynamicDialogConfig.data);
-      this.form
-        .get('nickname')
-        ?.setAsyncValidators(
-          uniqueNicknameValidator(this.store, this._user?.id),
-        );
-    }
-  }
-
   private store = inject(Store);
-  private _user: User | null = null;
 
+  private _user: User | null = null;
   public form: FormGroup = new FormGroup({
+    avatar: new FormControl(''),
     firstName: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
@@ -65,13 +54,28 @@ export class ShowUser {
     address: new FormControl(''),
   });
 
+  constructor(
+    public dialogRef: DynamicDialogRef,
+    private dynamicDialogConfig: DynamicDialogConfig,
+  ) {
+    if (this.dynamicDialogConfig.data) {
+      this._user = this.dynamicDialogConfig.data;
+      this.form.patchValue(this.dynamicDialogConfig.data);
+      this.form
+        .get('nickname')
+        ?.setAsyncValidators(
+          uniqueNicknameValidator(this.store, this._user?.id),
+        );
+    }
+  }
+
   public get formCities(): FormControl {
     return this.form.get('city') as FormControl;
   }
 
   public onSave(): void {
     if (!this._user) {
-      const user: User = { id: Date.now().toString(), ...this.form.value };
+      const user: User = { ...this.form.value };
       this.store.dispatch(userActions.createUser({ user }));
     } else {
       const user: User = { id: this._user.id, ...this.form.value };

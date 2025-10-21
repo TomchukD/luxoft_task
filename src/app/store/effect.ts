@@ -26,19 +26,24 @@ export class UserEffect {
       ofType(UserAction.updateUser),
       mergeMap((action) =>
         this.usersService.updateUser(action.user).pipe(
-          map(() => UserAction.updateUserUserSuccess({ user: action.user })),
-          catchError((error) => of(UserAction.updateUserUserError(error))),
+          map((updatedUser) =>
+            UserAction.updateUserSuccess({ user: updatedUser }),
+          ),
+          catchError((error) => of(UserAction.updateUserError({ error }))),
         ),
       ),
     ),
   );
+
   createUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UserAction.createUser),
       mergeMap((action) =>
         this.usersService.createUser(action.user).pipe(
-          map(() => UserAction.createUserUserSuccess({ user: action.user })),
-          catchError((error) => of(UserAction.createUserUserError(error))),
+          map((updatedUser) =>
+            UserAction.createUserSuccess({ user: updatedUser }),
+          ),
+          catchError((error) => of(UserAction.createUserError(error))),
         ),
       ),
     ),
@@ -49,8 +54,8 @@ export class UserEffect {
       ofType(UserAction.deleteUser),
       mergeMap((action) =>
         this.usersService.deleteUser(action.id).pipe(
-          map(() => UserAction.deleteUserUserSuccess({ id: action.id })),
-          catchError((error) => of(UserAction.deleteUserUserError(error))),
+          map(() => UserAction.deleteUserSuccess({ id: action.id })),
+          catchError((error) => of(UserAction.deleteUserError(error))),
         ),
       ),
     ),
