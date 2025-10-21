@@ -16,16 +16,14 @@ import { Observable } from 'rxjs';
 import { selectFilteredUsers } from 'src/app/store/selector';
 import { AsyncPipe } from '@angular/common';
 import { ConfirmDialog } from 'primeng/confirmdialog';
-import * as XLSX from 'xlsx';
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
+
 import { Toast } from 'primeng/toast';
 import { Filter } from 'src/app/components/filter/filter';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ShowUser } from 'src/app/components/user-edit/show-user.component';
 import { Avatar } from 'primeng/avatar';
-
-(pdfMake as any).vfs = pdfFonts.vfs;
+import { ExportButton } from 'src/app/components/export-button/export-button';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lx-user-table',
@@ -41,6 +39,7 @@ import { Avatar } from 'primeng/avatar';
     Toast,
     Filter,
     Avatar,
+    ExportButton,
   ],
   templateUrl: './user-table.html',
   styleUrl: './user-table.scss',
@@ -48,9 +47,13 @@ import { Avatar } from 'primeng/avatar';
 })
 export class UserTable {
   private store = inject(Store);
+  private router = inject(Router);
+
   private dialogService = inject(DialogService);
   private confirmationService = inject(ConfirmationService);
   private messageService = inject(MessageService);
+
+  public isAdmin: boolean = localStorage.getItem('role') === 'admin';
   public users$: Observable<User[]> = this.store.select(selectFilteredUsers);
 
   public selectedUser: User[] = [];
@@ -96,75 +99,16 @@ export class UserTable {
       },
     });
   }
+
   public onEdit(data: User): void {
     this.dialogService.open(ShowUser, { header: 'Edit user', data });
   }
   public onNewUser(): void {
     this.dialogService.open(ShowUser, { header: 'Create new user' });
   }
-  public exportPDF(): void {
-    this.export(this.generatePDF);
-  }
-  public exportXLSX(): void {
-    this.export(this.generateXLSX);
-  }
-  public exportXLS(): void {
-    this.export(this.generateXLS);
-  }
 
-  private export(callBack: (user: User[]) => void): void {
-    this.users$
-      .subscribe((u) => {
-        const exportData = this.selectedUser.length > 0 ? this.selectedUser : u;
-        callBack(exportData);
-      })
-      .unsubscribe();
-  }
-
-  private generatePDF(users: User[]): void {
-    const docDefinition = {
-      content: [
-        { text: 'Users', style: 'header' },
-        {
-          table: {
-            body: [
-              [
-                'First Name',
-                'Last Name',
-                'Nickname',
-                'City',
-                'Phone',
-                'Email',
-                'Address',
-              ],
-              ...users.map((u) => [
-                u.firstName,
-                u.lastName,
-                u.nickname,
-                u.city,
-                u.email,
-                u.phone,
-                u.address,
-              ]),
-            ],
-          },
-        },
-      ],
-    };
-    pdfMake.createPdf(docDefinition).download('users.pdf');
-  }
-
-  private generateXLSX(users: User[]): void {
-    const worksheet = XLSX.utils.json_to_sheet(users);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Users');
-    XLSX.writeFile(workbook, 'users.xlsx');
-  }
-
-  private generateXLS(users: User[]): void {
-    const worksheet = XLSX.utils.json_to_sheet(users);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Users');
-    XLSX.writeFile(workbook, 'users.xls');
+  public onLogout(): void {
+    localStorage.removeItem('role');
+    this.router.navigate(['login']).then();
   }
 }
