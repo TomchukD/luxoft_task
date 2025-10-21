@@ -11,10 +11,18 @@ import { Password } from 'primeng/password';
 import { InputText } from 'primeng/inputtext';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Router } from '@angular/router';
+import { Message } from 'primeng/message';
 
 @Component({
   selector: 'lx-login',
-  imports: [ReactiveFormsModule, Button, FloatLabel, Password, InputText],
+  imports: [
+    ReactiveFormsModule,
+    Button,
+    FloatLabel,
+    Password,
+    InputText,
+    Message,
+  ],
   standalone: true,
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.scss',
@@ -24,7 +32,7 @@ export class LoginPage {
   private router = inject(Router);
 
   public loginForm: FormGroup = new FormGroup({
-    email: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required),
   });
   public onSubmit(): void {

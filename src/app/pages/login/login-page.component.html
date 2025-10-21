@@ -10,6 +10,11 @@
       <p-floatlabel class="mb-2">
         <input fluid type="text" pInputText formControlName="email" />
         <label for="email">Email</label>
+        @if (loginForm.get("email")?.hasError("email")) {
+          <p-message severity="error" size="small" variant="simple">
+            Enter a valid email</p-message
+          >
+        }
       </p-floatlabel>
 
       <p-floatlabel class="mb-2">
@@ -18,7 +23,8 @@
           formControlName="password"
           [feedback]="false"
           toggleMask="true"
-        ></p-password>
+        >
+        </p-password>
         <label for="password">Password</label>
       </p-floatlabel>
 

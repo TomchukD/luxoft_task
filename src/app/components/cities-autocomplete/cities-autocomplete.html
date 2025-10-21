@@ -1,0 +1,8 @@
+<p-autoComplete
+  [suggestions]="filteredCities"
+  [dropdown]="true"
+  (completeMethod)="filterCities($event)"
+  [formControl]="citiesControl"
+  placeholder="Select a city"
+  fluid
+/>

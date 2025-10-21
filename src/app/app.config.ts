@@ -11,6 +11,11 @@ import { provideStore } from '@ngrx/store';
 import { providePrimeNG } from 'primeng/config';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
+import { provideEffects } from '@ngrx/effects';
+import { userReducer } from 'src/app/store/reducer';
+import { UserEffect } from 'src/app/store/effect';
+
+const store = { user: userReducer };
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,7 +24,8 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideHttpClient(),
     provideRouter(routes),
-    provideStore(),
+    provideEffects([UserEffect]),
+    provideStore(store),
     providePrimeNG({
       theme: {
         preset: Aura,
@@ -28,5 +34,6 @@ export const appConfig: ApplicationConfig = {
         },
       },
     }),
+    provideEffects(),
   ],
 };
