@@ -72,12 +72,12 @@ export class ShowUser {
             this._user!.nickname,
           ),
         );
-    }
 
-    this.form.patchValue(this.dynamicDialogConfig.data);
-    this.form
-      .get('nickname')
-      ?.updateValueAndValidity({ onlySelf: true, emitEvent: false });
+      this.form.patchValue(this.dynamicDialogConfig.data);
+      this.form
+        .get('nickname')
+        ?.updateValueAndValidity({ onlySelf: true, emitEvent: false });
+    }
   }
 
   public get formCities(): FormControl {
@@ -85,6 +85,15 @@ export class ShowUser {
   }
   public get formFirstName(): FormControl {
     return this.form.get('firstName') as FormControl;
+  }
+  public get formNickName(): FormControl {
+    return this.form.get('nickname') as FormControl;
+  }
+  public get formEmail(): FormControl {
+    return this.form.get('email') as FormControl;
+  }
+  public get formPhone(): FormControl {
+    return this.form.get('phone') as FormControl;
   }
 
   public onSave(): void {
