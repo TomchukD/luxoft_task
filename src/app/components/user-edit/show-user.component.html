@@ -1,6 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="onSave()" class="grid grid-cols-2 gap-4">
   <div class="col-span-2 flex justify-center mb-4">
-    <lx-avatar formControlName="avatar" />
+    <lx-avatar formControlName="avatar" [letter]="formFirstName.value" />
   </div>
 
   <div>

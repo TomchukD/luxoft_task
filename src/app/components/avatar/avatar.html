@@ -14,7 +14,9 @@
         class="mr-2"
       ></p-avatar>
     } @else {
-      <p-avatar label="P" shape="circle" size="large" class="mr-2"></p-avatar>
+      <p-avatar shape="circle" size="large" class="mr-2">
+        <span class="text-base">{{ letter | slice: 0 : 1 }}</span>
+      </p-avatar>
     }
   </label>
 </div>

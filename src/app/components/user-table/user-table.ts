@@ -15,7 +15,7 @@ import { Store } from '@ngrx/store';
 import * as userActions from 'src/app/store/actions';
 import { Observable } from 'rxjs';
 import { selectFilteredUsers } from 'src/app/store/selector';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, SlicePipe } from '@angular/common';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 
 import { Toast } from 'primeng/toast';
@@ -46,6 +46,7 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
     Filter,
     Avatar,
     Menubar,
+    SlicePipe,
   ],
   templateUrl: './user-table.html',
   styleUrl: './user-table.scss',

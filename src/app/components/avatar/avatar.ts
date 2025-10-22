@@ -1,10 +1,11 @@
-import { Component, forwardRef } from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import { Avatar } from 'primeng/avatar';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { SlicePipe } from '@angular/common';
 
 @Component({
   selector: 'lx-avatar',
-  imports: [Avatar],
+  imports: [Avatar, SlicePipe],
   templateUrl: './avatar.html',
   styleUrl: './avatar.scss',
   providers: [
@@ -16,6 +17,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   ],
 })
 export class AvatarUpload implements ControlValueAccessor {
+  @Input() letter: string = '';
   avatar?: string;
 
   private onChange: (value: string) => void = () => {};

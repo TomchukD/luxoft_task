@@ -17,6 +17,7 @@ import { KeyFilter } from 'primeng/keyfilter';
 import { CitiesAutocomplete } from 'src/app/components/cities-autocomplete/cities-autocomplete';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AvatarUpload } from 'src/app/components/avatar/avatar';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'lx-user-edit',
@@ -35,8 +36,10 @@ import { AvatarUpload } from 'src/app/components/avatar/avatar';
 })
 export class ShowUser {
   private store = inject(Store);
+  private messageService = inject(MessageService);
 
   private _user: User | null = null;
+
   public form: FormGroup = new FormGroup({
     avatar: new FormControl(''),
     firstName: new FormControl('', [
@@ -80,6 +83,9 @@ export class ShowUser {
   public get formCities(): FormControl {
     return this.form.get('city') as FormControl;
   }
+  public get formFirstName(): FormControl {
+    return this.form.get('firstName') as FormControl;
+  }
 
   public onSave(): void {
     if (!this._user) {
@@ -89,6 +95,12 @@ export class ShowUser {
       const user: User = { id: this._user.id, ...this.form.value };
       this.store.dispatch(userActions.updateUser({ user }));
     }
+    const message = this._user ? 'Updated' : 'Created';
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: `User ${message} successfully!`,
+    });
     this.onClose();
   }
   public onClose(): void {

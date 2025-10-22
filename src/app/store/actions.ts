@@ -25,6 +25,7 @@ export const updateUserError = createAction(
   '[User] update user error',
   props<{ error: string }>(),
 );
+
 // ########################################
 
 export const deleteUser = createAction(
@@ -38,7 +39,9 @@ export const deleteUserSuccess = createAction(
 export const deleteUserError = createAction(
   '[User] delete user error',
   props<{ error: string }>(),
-); // ########################################
+);
+
+// ########################################
 
 export const createUser = createAction(
   '[User] create user',

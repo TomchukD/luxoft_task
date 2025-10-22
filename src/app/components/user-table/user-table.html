@@ -43,7 +43,9 @@
               shape="circle"
             />
           } @else {
-            <p-avatar label="P" shape="circle" class="mr-2" size="large" />
+            <p-avatar size="large" shape="circle" class="mr-2">
+              <span class="text-base">{{ user.firstName | slice: 0 : 1 }}</span>
+            </p-avatar>
           }
         </td>
         <td>{{ user.firstName }}</td>
